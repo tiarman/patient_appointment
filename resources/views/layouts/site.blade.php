@@ -124,7 +124,37 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label class="control-label">Title</label>
+                                                <label class="control-label">Ap Date</label>
+                                                <input type="text" name="title" placeholder="Slider title" value="{{ old('title') }}"
+                                                       class="form-control @error('title') is-invalid @enderror">
+                                                @error('title')
+                                                <strong class="text-danger">{{ $errors->first('title') }}</strong>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label class="control-label">Department</label>
+                                                <input type="text" name="title" placeholder="Slider title" value="{{ old('title') }}"
+                                                       class="form-control @error('title') is-invalid @enderror">
+                                                @error('title')
+                                                <strong class="text-danger">{{ $errors->first('title') }}</strong>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label class="control-label">Select D</label>
+                                                <input type="text" name="title" placeholder="Slider title" value="{{ old('title') }}"
+                                                       class="form-control @error('title') is-invalid @enderror">
+                                                @error('title')
+                                                <strong class="text-danger">{{ $errors->first('title') }}</strong>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <label class="control-label">F</label>
                                                 <input type="text" name="title" placeholder="Slider title" value="{{ old('title') }}"
                                                        class="form-control @error('title') is-invalid @enderror">
                                                 @error('title')
