@@ -125,23 +125,28 @@
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label class="control-label">Ap Date</label>
-                                                <input type="text" name="title" placeholder="Slider title" value="{{ old('title') }}"
-                                                       class="form-control @error('title') is-invalid @enderror">
-                                                @error('title')
-                                                <strong class="text-danger">{{ $errors->first('title') }}</strong>
+                                                <input type="date" name="ap_date" placeholder="Slider ap_date" value="{{ old('ap_date') }}"
+                                                       class="form-control @error('ap_date') is-invalid @enderror">
+                                                @error('ap_date')
+                                                <strong class="text-danger">{{ $errors->first('ap_date') }}</strong>
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="col-sm-12">
-                                            <div class="form-group">
-                                                <label class="control-label">Department</label>
-                                                <input type="text" name="title" placeholder="Slider title" value="{{ old('title') }}"
-                                                       class="form-control @error('title') is-invalid @enderror">
-                                                @error('title')
-                                                <strong class="text-danger">{{ $errors->first('title') }}</strong>
-                                                @enderror
-                                            </div>
-                                        </div>
+{{--                                        <div class="col-sm-6">--}}
+{{--                                            <div class="form-group">--}}
+{{--                                                <label class="control-label">Department<span class="text-danger">*</span></label>--}}
+{{--                                                <select name="department_id" required class="form-control @error('department_id') is-invalid @enderror">--}}
+{{--                                                    <option value="">Choose a Department</option>--}}
+{{--                                                    @foreach($datas2 as $statys)--}}
+{{--                                                        <option value="{{ $statys->name }}"--}}
+{{--                                                                @if(old('department_id') == $statys->name) selected @endif>{{ ucfirst($statys->name) }}</option>--}}
+{{--                                                    @endforeach--}}
+{{--                                                </select>--}}
+{{--                                                @error('department_id')--}}
+{{--                                                <strong class="text-danger">{{ $errors->first('department_id') }}</strong>--}}
+{{--                                                @enderror--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label class="control-label">Select D</label>
