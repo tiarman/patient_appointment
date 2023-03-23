@@ -132,28 +132,32 @@
                                                 @enderror
                                             </div>
                                         </div>
-{{--                                        <div class="col-sm-6">--}}
-{{--                                            <div class="form-group">--}}
-{{--                                                <label class="control-label">Department<span class="text-danger">*</span></label>--}}
-{{--                                                <select name="department_id" required class="form-control @error('department_id') is-invalid @enderror">--}}
-{{--                                                    <option value="">Choose a Department</option>--}}
-{{--                                                    @foreach($datas2 as $statys)--}}
-{{--                                                        <option value="{{ $statys->name }}"--}}
-{{--                                                                @if(old('department_id') == $statys->name) selected @endif>{{ ucfirst($statys->name) }}</option>--}}
-{{--                                                    @endforeach--}}
-{{--                                                </select>--}}
-{{--                                                @error('department_id')--}}
-{{--                                                <strong class="text-danger">{{ $errors->first('department_id') }}</strong>--}}
-{{--                                                @enderror--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label class="control-label">Select D</label>
-                                                <input type="text" name="title" placeholder="Slider title" value="{{ old('title') }}"
-                                                       class="form-control @error('title') is-invalid @enderror">
-                                                @error('title')
-                                                <strong class="text-danger">{{ $errors->first('title') }}</strong>
+                                                <label class="control-label">Department<span class="text-danger">*</span></label>
+                                                <select name="department_id" required class="form-control @error('department_id') is-invalid @enderror">
+                                                    <option value="">Choose a Department</option>
+                                                    @foreach($datas2 as $statys)
+                                                        <option value="{{ $statys->name }}"
+                                                                @if(old('department_id') == $statys->name) selected @endif>{{ ucfirst($statys->name) }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('department_id')
+                                                <strong class="text-danger">{{ $errors->first('department_id') }}</strong>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="doctors_id" class="control-label">Select Doc<span class="text-danger">*</span></label>
+                                                <select name="doctors_id" class="form-control @error('doctors_id') is-invalid @enderror" required>
+                                                    <option value="">Choose a Doctors</option>
+                                                    @foreach($doctors as $doctor)
+                                                        <option value="{{ $doctor->name }}" @selected($doctor->name == old('doctors_id'))>{{ $doctor->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('doctors_id')
+                                                <strong class="text-danger">{{ $errors->first('doctors_id') }}</strong>
                                                 @enderror
                                             </div>
                                         </div>
@@ -217,5 +221,101 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.js" integrity="sha512-6DC1eE3AWg1bgitkoaRM1lhY98PxbMIbhgYCGV107aZlyzzvaWCW1nJW2vDuYQm06hXrW0As6OGKcIaAVWnHJw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script>
+    $(document).ready(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        // $('.year-picker').datepicker({
+        //     format: "yyyy",
+        //     viewMode: "years",
+        //     minViewMode: "years",
+        //     orientation: "bottom",
+        //     autoclose: true //to close picker once year is selected
+        // });
+
+
+        $('select[name="department_id"]').change(function () {
+            const $this = $('select[name="doctors_id"]')
+            var idDivision = this.value;
+            // console.log(idDivision);
+            $this.html('');
+            $.ajax({
+                url: "{{url('api/fetch-doctors')}}/" + idDivision,
+                type: "GET",
+                dataType: 'json',
+                success: function (result) {
+                    $this.html('<option value="">Choose a doctor</option>');
+                    $.each(result.doctors, function (key, value) {
+                        $this.append('<option value="' + value
+                            .id + '">' + value.name + '</option>');
+                    });
+
+                }
+            });
+        });
+        $('select[name="district_id"]').change(function () {
+            const $this = $('select[name="upazila_id"]')
+            var idUpazila = this.value;
+            $this.html('');
+            $.ajax({
+                url: "{{url('api/fetch-upazilas')}}/" + idUpazila,
+                type: "GET",
+                dataType: 'json',
+                success: function (result) {
+                    $this.html('<option value="">Choose a upazila</option>');
+                    $.each(result.upazilas, function (key, value) {
+                        $this.append('<option value="' + value
+                            .id + '">' + value.name + '</option>');
+                    });
+                }
+            });
+        });
+
+
+        function checkDetails($id, $min, $max) {
+            const $this = $('#' + $id)
+            var $regex = /\s+/gi;
+            var $wordcount = $.trim($this.val()).replace($regex, ' ').split(' ').length;
+            if ($min > $wordcount) {
+                $this.addClass('is-invalid')
+                $('#' + $id + '_error').text('Minimum ' + $min + ' word required.')
+            } else if ($wordcount > $max) {
+                $this.addClass('is-invalid')
+                $('#' + $id + '_error').text('Maximum ' + $max + ' word allow.')
+            } else {
+                $('#' + $id + '_error').text('')
+                $this.removeClass('is-invalid')
+            }
+        }
+
+        $('.notificationItems').click(function () {
+            const $this = $(this)
+            const title = $(this).data('title')
+            const message = $(this).data('message')
+            const url = $(this).data('url')
+            $('#notificationTitle').text(title)
+            $('#notificationMessage').text(message)
+            $('#notificationModal').modal('show')
+            $.ajax({
+                url: url, type: "POST", dataType: 'html',
+                success: function (result) {
+                    if (result === 'success') {
+                        const $notify = $('.unread-notification').text()
+                        $('.unread-notification').text((Number($notify) - 1))
+                        $this.addClass('active')
+                    }
+                }
+            })
+        })
+
+    })
+</script>
 </body>
 </html>

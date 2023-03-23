@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
+use App\Models\Doctor;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
 {
     public function home(){
-        return view('layouts.site');
+//        $data['datas2'] = Department::get();
+        $data['datas2'] = Department::select('id', 'name')->orderBy('name')->get();
+        $data['doctors'] = Doctor::select('id', 'name')->orderBy('name')->get();
+//        return $datas;
+        return view('layouts.site', $data);
 
     }
 }

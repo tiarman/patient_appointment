@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\PermissionController;
@@ -24,6 +25,9 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/', [FrontendController::class, 'home'])->name('home');
+//Frontend Dependency selector
+//Route::get('api/fetch-users', [ApiController::class, 'users']);
+Route::get('api/fetch-doctors/{id}', [ApiController::class, 'doctors']);
 
 Route::get('/logout', [SiteController::class, 'logout'])->middleware('auth')->name('logout');
 Route::middleware([
