@@ -10,7 +10,7 @@ class ApiController extends Controller
 {
     public function doctors($department_id) {
         $data['doctors'] = Doctor::where("department_id", $department_id)
-            ->get(["name", "id"]);
+            ->get(["name", "id", "fee"]);
 
         return response()->json($data);
     }

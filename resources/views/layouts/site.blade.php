@@ -164,10 +164,10 @@
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label class="control-label">F</label>
-                                                <input type="text" name="title" placeholder="Slider title" value="{{ old('title') }}"
-                                                       class="form-control @error('title') is-invalid @enderror">
-                                                @error('title')
-                                                <strong class="text-danger">{{ $errors->first('title') }}</strong>
+                                                <input type="text" name="fee" placeholder="Slider fee" value="{{ old('fee') }}"
+                                                       class="form-control @error('fee') is-invalid @enderror">
+                                                @error('fee')
+                                                <strong class="text-danger">{{ $errors->first('fee') }}</strong>
                                                 @enderror
                                             </div>
                                         </div>
@@ -253,23 +253,25 @@
                 success: function (result) {
                     $this.html('<option value="">Choose a doctor</option>');
                     $.each(result.doctors, function (key, value) {
-                        $this.append('<option value="' + value
+                        $this.append('<option fee="' + value.fee + '" value="' + value
                             .id + '">' + value.name + '</option>');
                     });
 
                 }
             });
         });
-        $('select[name="district_id"]').change(function () {
-            const $this = $('select[name="upazila_id"]')
+        $('select[name="doctors_id"]').change(function () {
+            console.log($('select[name="doctors_id"] :selected').attr('fee'))
+            const $this = $('select[name="fee"]')
+
             var idUpazila = this.value;
             $this.html('');
             $.ajax({
-                url: "{{url('api/fetch-upazilas')}}/" + idUpazila,
+                url: "{{url('api/fetch-fee')}}/" + idUpazila,
                 type: "GET",
                 dataType: 'json',
                 success: function (result) {
-                    $this.html('<option value="">Choose a upazila</option>');
+                    $this.html('<option value="">Choose a fee</option>');
                     $.each(result.upazilas, function (key, value) {
                         $this.append('<option value="' + value
                             .id + '">' + value.name + '</option>');
