@@ -163,6 +163,7 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
+<<<<<<< HEAD
                                                 <label for="feess" class="control-label">Fee<span class="text-danger">*</span></label>
                                                 <select name="feess" class="form-control @error('feess') is-invalid @enderror" required>
                                                     <option value="">Choose a Fee</option>
@@ -172,6 +173,13 @@
                                                 </select>
                                                 @error('feess')
                                                 <strong class="text-danger">{{ $errors->first('feess') }}</strong>
+=======
+                                                <label class="control-label">F</label>
+                                                <input type="text" name="fee" placeholder="Slider fee" value="{{ old('fee') }}"
+                                                       class="form-control @error('fee') is-invalid @enderror">
+                                                @error('fee')
+                                                <strong class="text-danger">{{ $errors->first('fee') }}</strong>
+>>>>>>> 2e4ca5b5adde2554e968ca6946cba11faf378545
                                                 @enderror
                                             </div>
                                         </div>
@@ -258,27 +266,48 @@
                 success: function (result) {
                     console.log(result);
                     $this.html('<option value="">Choose a doctor</option>');
+<<<<<<< HEAD
                     $.each(result.doctorssss, function (key, value) {
                         $this.append('<option value="' + value
+=======
+                    $.each(result.doctors, function (key, value) {
+                        $this.append('<option fee="' + value.fee + '" value="' + value
+>>>>>>> 2e4ca5b5adde2554e968ca6946cba11faf378545
                             .id + '">' + value.name + '</option>');
                     });
 
                 }
             });
         });
+<<<<<<< HEAD
         $('select[name="doctors_name"]').change(function () {
             const $this = $('select[name="feess"]')
             console.log($this);
+=======
+        $('select[name="doctors_id"]').change(function () {
+            console.log($('select[name="doctors_id"] :selected').attr('fee'))
+            const $this = $('select[name="fee"]')
+
+>>>>>>> 2e4ca5b5adde2554e968ca6946cba11faf378545
             var idUpazila = this.value;
             console.log(idUpazila);
             $this.html('');
             $.ajax({
+<<<<<<< HEAD
                 url: "{{url('api/fetch-fees')}}/" + idUpazila,
                 type: "GET",
                 dataType: 'json',
                 success: function (result) {
                     $this.html('<option value="">Choose a upazila</option>');
                     $.each(result.fees, function (key, value) {
+=======
+                url: "{{url('api/fetch-fee')}}/" + idUpazila,
+                type: "GET",
+                dataType: 'json',
+                success: function (result) {
+                    $this.html('<option value="">Choose a fee</option>');
+                    $.each(result.upazilas, function (key, value) {
+>>>>>>> 2e4ca5b5adde2554e968ca6946cba11faf378545
                         $this.append('<option value="' + value
                             .id + '">' + value.fee + '</option>');
                     });
