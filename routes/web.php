@@ -28,6 +28,8 @@ Route::get('/', [FrontendController::class, 'home'])->name('home');
 //Frontend Dependency selector
 //Route::get('api/fetch-users', [ApiController::class, 'users']);
 Route::get('api/fetch-doctors/{id}', [ApiController::class, 'doctors']);
+//Route::get('api/fetch-upazilas/{id}', [ApiController::class, 'upazilas']);
+Route::get('api/fetch-fees/{id}', [ApiController::class, 'doctorss']);
 
 Route::get('/logout', [SiteController::class, 'logout'])->middleware('auth')->name('logout');
 Route::middleware([

@@ -30,4 +30,10 @@ class Doctor extends Model
     {
         return $this->hasOne(Department::class, 'id', 'department_id');
     }
+
+
+    public function doctorsss_id(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Doctor::class, 'id', 'doctor_id');
+    }
 }

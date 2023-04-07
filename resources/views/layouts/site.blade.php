@@ -149,25 +149,29 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="doctors_id" class="control-label">Select Doc<span class="text-danger">*</span></label>
-                                                <select name="doctors_id" class="form-control @error('doctors_id') is-invalid @enderror" required>
+                                                <label for="doctors_name" class="control-label">Select Doctor<span class="text-danger">*</span></label>
+                                                <select name="doctors_name" class="form-control @error('doctors_name') is-invalid @enderror" required>
                                                     <option value="">Choose a Doctors</option>
                                                     @foreach($doctors as $doctor)
-                                                        <option value="{{ $doctor->name }}" @selected($doctor->name == old('doctors_id'))>{{ $doctor->name }}</option>
+                                                        <option value="{{ $doctor->name }}" @selected($doctor->name == old('doctors_name'))>{{ $doctor->name }}</option>
                                                     @endforeach
                                                 </select>
-                                                @error('doctors_id')
-                                                <strong class="text-danger">{{ $errors->first('doctors_id') }}</strong>
+                                                @error('doctors_name')
+                                                <strong class="text-danger">{{ $errors->first('doctors_name') }}</strong>
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="col-sm-12">
+                                        <div class="col-md-12">
                                             <div class="form-group">
-                                                <label class="control-label">F</label>
-                                                <input type="text" name="title" placeholder="Slider title" value="{{ old('title') }}"
-                                                       class="form-control @error('title') is-invalid @enderror">
-                                                @error('title')
-                                                <strong class="text-danger">{{ $errors->first('title') }}</strong>
+                                                <label for="feess" class="control-label">Fee<span class="text-danger">*</span></label>
+                                                <select name="feess" class="form-control @error('feess') is-invalid @enderror" required>
+                                                    <option value="">Choose a Fee</option>
+                                                    @foreach($fee as $doctorsss)
+                                                    <option value="{{ $doctorsss->fee }}" @selected($doctorsss->fee == old('feess'))>{{ $doctorsss->fee }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('feess')
+                                                <strong class="text-danger">{{ $errors->first('feess') }}</strong>
                                                 @enderror
                                             </div>
                                         </div>
@@ -242,17 +246,19 @@
 
 
         $('select[name="department_id"]').change(function () {
-            const $this = $('select[name="doctors_id"]')
-            var idDivision = this.value;
-            // console.log(idDivision);
+            const $this = $('select[name="doctors_name"]')
+            console.log($this);
+            var idDepartment = this.value;
+            console.log(idDepartment);
             $this.html('');
             $.ajax({
-                url: "{{url('api/fetch-doctors')}}/" + idDivision,
+                url: "{{url('api/fetch-doctors')}}/" + idDepartment,
                 type: "GET",
                 dataType: 'json',
                 success: function (result) {
+                    console.log(result);
                     $this.html('<option value="">Choose a doctor</option>');
-                    $.each(result.doctors, function (key, value) {
+                    $.each(result.doctorssss, function (key, value) {
                         $this.append('<option value="' + value
                             .id + '">' + value.name + '</option>');
                     });
@@ -260,19 +266,21 @@
                 }
             });
         });
-        $('select[name="district_id"]').change(function () {
-            const $this = $('select[name="upazila_id"]')
+        $('select[name="doctors_name"]').change(function () {
+            const $this = $('select[name="feess"]')
+            console.log($this);
             var idUpazila = this.value;
+            console.log(idUpazila);
             $this.html('');
             $.ajax({
-                url: "{{url('api/fetch-upazilas')}}/" + idUpazila,
+                url: "{{url('api/fetch-fees')}}/" + idUpazila,
                 type: "GET",
                 dataType: 'json',
                 success: function (result) {
                     $this.html('<option value="">Choose a upazila</option>');
-                    $.each(result.upazilas, function (key, value) {
+                    $.each(result.fees, function (key, value) {
                         $this.append('<option value="' + value
-                            .id + '">' + value.name + '</option>');
+                            .id + '">' + value.fee + '</option>');
                     });
                 }
             });
